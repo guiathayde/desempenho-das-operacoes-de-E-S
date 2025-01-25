@@ -1,3 +1,5 @@
+Comando para rodar o código: gcc -o main "main.c" -Wall -pedantic -O2 -Wno-unused-result && ./main
+
 Titulo: Desempenho das operações de E/S
 
 Objetivo: criar um programa benchmark para avaliar o desempenho das operações de leitura (e escrita) em arquivos, usando diferentes tamanhos de requisição, em acessos sequenciais e aleatórios.
