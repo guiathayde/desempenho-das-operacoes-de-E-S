@@ -1,3 +1,12 @@
+Grupo 8
+
+Carolina Martins Emilio - 811508
+Felipe Kenji Yamanaka Kumagai - 821302
+Gabriel Fernandes Menoni - 815773
+Guilherme César Athayde - 748175
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Comando para rodar o código: gcc -o main "main.c" -Wall -pedantic -O2 -Wno-unused-result && ./main
 
 Titulo: Desempenho das operações de E/S
