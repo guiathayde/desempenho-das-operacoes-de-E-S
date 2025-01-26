@@ -48,14 +48,31 @@ int main(int argc, char *argv[])
     fclose(f);
     free(random_data);
 
-    // Tabela de resultados
-    printf("BlockSize (bytes), SeqRead (s), RandRead (s), SeqWrite (s), RandWrite (s)\n");
+    // Abrir arquivo para salvar resultados
+    char *output_filename = "results.csv";
+    printf("Salvando resultados em: %s\n", output_filename);
+    FILE *output = fopen(output_filename, "w");
+
+    if (!output)
+    {
+        perror("Erro ao abrir arquivo de resultados");
+        return 1;
+    }
+
+    fprintf(output, "+--------------------+------------------+------------------+------------------+------------------+\n");
+    fprintf(output, "| Block Size (bytes) | SeqRead (s)      | RandRead (s)     | SeqWrite (s)     | RandWrite (s)    |\n");
+    fprintf(output, "+--------------------+------------------+------------------+------------------+------------------+\n");
+
+    // Exibir cabeçalho no terminal para saída em tabela
+    printf("+--------------------+------------------+------------------+------------------+------------------+\n");
+    printf("| Block Size (bytes) | SeqRead (s)      | RandRead (s)     | SeqWrite (s)     | RandWrite (s)    |\n");
+    printf("+--------------------+------------------+------------------+------------------+------------------+\n");
 
     for (int i = 0; i < NUM_BLOCK_SIZES; i++)
     {
         int bs = block_sizes[i];
         int num_requests = NUM_REQUESTS / bs;
-        
+
         double start, end;
         double seq_read_time = 0.0, rand_read_time = 0.0;
         double seq_write_time = 0.0, rand_write_time = 0.0;
@@ -157,8 +174,18 @@ int main(int argc, char *argv[])
         end = get_time_sec();
         rand_write_time = end - start;
 
-        printf("%d, %.6f, %.6f, %.6f, %.6f\n",
+        printf("| %18d | %16.6f | %16.6f | %16.6f | %16.6f |\n",
                bs, seq_read_time, rand_read_time, seq_write_time, rand_write_time);
+
+        // Salvar resultados no arquivo CSV
+        fprintf(output, "| %18d | %16.6f | %16.6f | %16.6f | %16.6f |\n",
+                bs, seq_read_time, rand_read_time, seq_write_time, rand_write_time);
+
+        printf("+--------------------+------------------+------------------+------------------+------------------+\n");
+        fprintf(output, "+--------------------+------------------+------------------+------------------+------------------+\n");
     }
+    // Fechar arquivo de resultados
+    fclose(output);
+
     return 0;
 }
